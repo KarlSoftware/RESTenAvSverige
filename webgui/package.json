@@ -10,6 +10,7 @@
     "start": "roc start"
   },
   "dependencies": {
+    "react-select": "^1.0.0-rc.3",
     "roc-package-web-app-react": "^1.0.0-beta.10"
   },
   "devDependencies": {
