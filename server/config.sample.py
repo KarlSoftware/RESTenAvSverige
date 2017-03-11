@@ -2,7 +2,7 @@ import psycopg2
 
 DBNAME=''
 USER=''
-password=''
+PASSWORD=''
 HOST=''
 
-conn = psycopg2.connect(dbname=DBNAME, user=USER, password=PASSOWRD, host=HOST)
+conn = psycopg2.connect(dbname=DBNAME, user=USER, password=PASSWORD, host=HOST)
