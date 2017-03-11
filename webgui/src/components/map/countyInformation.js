@@ -6,7 +6,6 @@ export default {
   skane: { name: 'Skåne län', status: 0.2 },
   gavleborg: { name: 'Gävleborgs län', status: 0.1 },
   jamtland: { name: 'Jämtlands län', status: 1 },
-  jamtland2: { name: 'Jämtlands län', status: 0.6 },
   norrbotten: { name: 'Norrbottens län', status: 0.3 },
   stockholm: { name: 'Stockholms län', status: 1.0 },
   sodermanland: { name: 'Södermanlands län', status: 0.1 },
@@ -18,10 +17,8 @@ export default {
   kalmar: { name: 'Kalmar län', status: 0.9 },
   dalarna: { name: 'Dalarnas län', status: 0.1 },
   vasterbotten: { name: 'Västerbottens län', status: 0.1 },
-  vasterbotten2: { name: 'Västerbottens län', status: 0.2 },
   varmland: { name: 'Värmlands län', status: 0.5 },
   jonkoping: { name: 'Jönköpings län', status: 0.4 },
-  jonkopng2: { name: 'Jönköpings län', status: 0.1 },
   orebro: { name: 'Örebro län', status: 0.3 },
 };
 

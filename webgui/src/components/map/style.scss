@@ -7,18 +7,26 @@
 }
 
 .svg {
-    fill: $map-default;
-    height: 40rem;
+    fill: white;
+    width: 50%;
 }
 
 .county {
-    fill: blue;
+    fill: $map-default;
 }
 
 .information {
-    max-height: 50%;
+    max-width: 50%;
 }
 
 .county:hover {
     fill: $map-hover;
+}
+
+.informationText {
+    background-color: white;
+    margin-top: 1rem;
+    padding: 2rem;
+    border: 5px solid $contrast;
+    border-radius: 5px;
 }

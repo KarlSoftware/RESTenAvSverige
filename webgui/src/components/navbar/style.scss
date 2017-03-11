@@ -1,15 +1,18 @@
 @import '../../styling/variables';
 
 .navbar {
-    height: 8em;
-    background: $dark;
-    border-bottom: 5px solid $contrast;
-    box-shadow: 9px -3px 4px 5px $grey;
+    height: 5rem;
+    background: $contrast;
     position: fixed;
     top: 0;
     width: 100%;
+    box-shadow: 2px 3px 9px 0px #423B3E;
 }
 
 .navbar_title {
     color: $color;
+}
+
+.navbar_title_florp {
+    color: $dark;
 }

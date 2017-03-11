@@ -12,7 +12,15 @@ export default class Information extends React.Component {
     return (
       <div>
         <h2>{this.props.name}</h2>
-        <p>Lorem ipsum Lorem ipsumLorem ipsumLorem i
+        <p className={styles.informationText}>Lorem ipsum Lorem ipsumLorem ipsumLorem i
+          psumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum   Lorem
+          ipsumLorem ipsumLorem ipsum Lorem ipsumLorem ipsum
+        </p>
+        <p className={styles.informationText}>Lorem ipsum Lorem ipsumLorem ipsumLorem i
+          psumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum   Lorem
+          ipsumLorem ipsumLorem ipsum Lorem ipsumLorem ipsum
+        </p>
+        <p className={styles.informationText}>Lorem ipsum Lorem ipsumLorem ipsumLorem i
           psumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum   Lorem
           ipsumLorem ipsumLorem ipsum Lorem ipsumLorem ipsum
         </p>

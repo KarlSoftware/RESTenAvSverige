@@ -14,11 +14,6 @@ export default class App extends Component {
   render() {
     return (
       <div className={styles.main}>
-        <Helmet
-          link={[{
-            rel: 'icon', href: '/favicon.png',
-          }]}
-        />
         <Navbar />
         { this.props.children }
       </div>
