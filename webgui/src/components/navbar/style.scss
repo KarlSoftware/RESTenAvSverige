@@ -1,0 +1,15 @@
+@import '../../styling/variables';
+
+.navbar {
+    height: 8em;
+    background: $dark;
+    border-bottom: 5px solid $contrast;
+    box-shadow: 9px -3px 4px 5px $grey;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navbar_title {
+    color: $color;
+}
