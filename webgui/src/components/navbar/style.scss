@@ -1,37 +1,14 @@
+@import '../../styling/variables';
+
 .navbar {
-    height: 50px;
-    background: #fff;
-
-    ul {
-        list-style: inside;
-        list-style-type: none;
-    }
-
-    li {
-        display: inline-block;
-        margin-right: 30px;
-    }
+    height: 8em;
+    background: $dark;
+    border-bottom: 5px solid $contrast;
+    box-shadow: 9px -3px 4px 5px $grey;
+    position: fixed;
+    width: 100%;
 }
 
-.a {
-    padding: 5px;
-    line-height: 20px;
-    color: rgb(29, 124, 142);
-    text-decoration: none;
-    font-family: 'Rajdhani';
-    font-size: 20px;
-    font-weight: 500;
-    text-transform: uppercase;
-}
-
-.active {
-    border-bottom: 2px solid rgb(29, 124, 142);
-}
-
-.a:visited {
-    color: rgb(29, 124, 142);
-}
-
-.a:hover {
-    color: rgb(22, 118, 136);
+.navbar_title {
+    color: $color;
 }

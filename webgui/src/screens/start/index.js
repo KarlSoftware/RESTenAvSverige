@@ -11,19 +11,8 @@ export default class Start extends Component {
     return (
       <div className={ styles.main }>
         <div className="header">
-          <h1>Roc Web App React</h1>
-          <h2>Fully featured React applications</h2>
         </div>
         <div className="wrapper">
-          <h4>Congratulations</h4>
-          <p>
-            You have set up a complete stack for building a Reactive Universal Application.
-          </p>
-          <p>
-            <strong>Feel free to delete</strong> the generated code and components, they are only
-            here for your reference.
-          </p>
-
           <h4>Routing</h4>
           <p>
             Your <a href="https://github.com/reactjs/react-router">React Router</a> entry is set up
