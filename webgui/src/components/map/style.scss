@@ -1,0 +1,24 @@
+@import '../../styling/variables';
+
+.main {
+    padding-top: 10rem; 
+    display: flex;
+    justify-content: space-between;
+}
+
+.svg {
+    fill: $map-default;
+    height: 40rem;
+}
+
+.county {
+    fill: blue;
+}
+
+.information {
+    max-height: 50%;
+}
+
+.county:hover {
+    fill: $map-hover;
+}

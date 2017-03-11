@@ -1,3 +1,5 @@
+@import '../../styling/variables';
+
 body {
     background: #fff;
     font-family: 'Helvetica Neue', helvetica, sans-serif;
@@ -19,6 +21,8 @@ h2 {
   text-align: center;
   text-transform: uppercase;
   line-height: 36px;
+  color: $dark;
+  text-decoration: underline;
 }
 
 h3 {
