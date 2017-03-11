@@ -9,13 +9,29 @@ module.exports = {
     build: {
       reducers: 'src/redux/reducers.js',
       routes: 'src/routes/index.js',
+      assets: {
+        images: {
+          urlLoader: {
+            filetypes: ["svg","png","woff","woff2","eot","ttf"]
+          }
+        }
+      },
+      style: {
+        modules: true,
+      },
+      resources: ["src/pure.css", "node_modules/react-select/dist/react-select.css"],
     },
     dev: {
       browsersync: {
         options: {
-          open: true,
+          open: false,
         },
       },
     },
+  },
+  webpack: {
+    output: {
+        filename: "[name].js",
+    }
   },
 };
