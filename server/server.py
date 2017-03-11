@@ -16,19 +16,19 @@ def geografi():
 
         result = {}
         for kommun in cursor:
-            if kommun['kommunkod'] not in result:
-                result[kommun['kommunkod']] = {
-                    'lansnamn': kommun['lansnamn'],
-                    'lanskod': kommun['lanskod'],
-                    'kommuner': {}
+            if kommun[1] not in result:
+                result[kommun[1]] = {
+                    'lansnamn': kommun[2],
+                    'lanskod': kommun[2],
+                    'kommuner': []
                 }
 
-            result[kommun['kommunkod']]['kommuner'].append({
-                'kommunnamn': kommun['kommunnamn'],
-                'kommunkod': kommun['kommunkod']
+            result[kommun[1]]['kommuner'].append({
+                'kommunnamn': kommun[0],
+                'kommunkod': kommun[1]
             })
 
-        return json.dumps(result)
+        return jsonify(result)
 
 @app.route("/search")
 def search():
