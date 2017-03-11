@@ -93,7 +93,7 @@ def yrkesgrupper():
     with conn.cursor() as cursor:
         query = "SELECT yrkesgrupp_id, yrkesgrupp FROM h4s.yrkesgrupper"
         cursor.execute(query)
-        result = map(lambda x: {'yrkesgrupp_id': x[0], 'yrkesgrupp': x[1]}, cursor.fetchall())
+        result = list(map(lambda x: {'yrkesgrupp_id': x[0], 'yrkesgrupp': x[1]}, cursor.fetchall()))
         return jsonify(result)
 
 
