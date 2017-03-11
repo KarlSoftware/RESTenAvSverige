@@ -18,21 +18,25 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     let options = [];
+    console.log(API.yrkesgrupper)
+
     $.ajax({
-      url: "http://api.arbetsformedlingen.se/af/v0/platsannonser/soklista/yrkesomraden",
+      url: API.yrkesgrupper,
       dataType: "json",
-      cache: false,
       async: false,
       success: function (data) {
-        const values = _.map(data.soklista.sokdata, (value) => {
-          return { value: value.id, label: value.namn };
-        });
-        options = values;
+        options = data;
       },
       error: function (xhr, status, err) {
         console.error(status, err.toString());
       },
     });
+
+    console.log(options);
+    const values = _.map(options, (value) => {
+      return { value: value.yrkesgrupp_id.toString(), label: value.yrkesgrupp };
+    });
+    options = values;
 
     this.state = {
       options: options,
@@ -63,7 +67,7 @@ export default class App extends Component {
   render() {
     const x = 7;
     return (
-      <div>
+      <div className={styles.box}>
         <Select
           ref="stateSelect" multi autofocus simpleValue name="selected-state"
           searchable
