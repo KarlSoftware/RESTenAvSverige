@@ -55,11 +55,14 @@ def search():
         cursor.execute(query)
 
         # Choose exact or nearby
-        kommuner = map(lambda x: (x[0] if narliggande else x[1], x[2], x[3]), cursor.fetchall())
-        kommuner = map(lambda k: map(int, k), kommuner)
+        kommuner = cursor.fetchall()
+        if not kommuner:
+            return jsonify({'error': 'empty result'})
+        kommuner = map(lambda x: (x[0] if narliggande else x[1], x[2], x[3]), kommuner)
+        kommuner = list(map(lambda k: tuple(map(int, k)), kommuner))
         
     # Get min/max values
-    platser = map(lambda x: x[0], kommuner)
+    platser = list(map(lambda x: x[0], kommuner))
     min_platser = min(platser)
     max_platser = max(platser)
     
