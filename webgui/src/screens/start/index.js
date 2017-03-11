@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
 
 import Map from '../../components/map';
+import Search from '../../components/searchBox';
 
 import styles from './style.scss';
 
 export default class Start extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+  setResult = (result) => {
+    this.setState({ result });
+  }
   render() {
     return (
       <div className={styles.main}>
-        <Map />
+        <div className={styles.navbar_buffer} />
+        <div className={styles.flex} >
+          <div style={{ width:"66%" }}>
+            <Map result={this.state.result} />
+          </div>
+          <div style={{ width:"33%" }}>
+            <Search setResult={this.setResult} />
+          </div>
+        </div>
       </div>
     );
   }
