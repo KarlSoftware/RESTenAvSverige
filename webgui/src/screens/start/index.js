@@ -48,7 +48,9 @@ export default class Start extends Component {
     this.setState({ result: null });
   }
   setLan = (id) => {
-    this.setState({ focus: id });
+    if (!this.state.focus) {
+      this.setState({ focus: id });
+    }
   }
   clearLan = () => {
     this.setState({ focus: null });
@@ -63,6 +65,27 @@ export default class Start extends Component {
       });
       viewBox = countyInformation[this.state.focus].viewBox;
     }
+    let text = null;
+    let title = null;
+    if (this.state.geografi) {
+      let tmp = null;
+      if (this.state.focus) {
+        tmp = _.object(_.map(this.state.geografi[this.state.focus].kommuner, function(item) {
+          return [item.kommunkod, item];
+        }));
+        tmp = tmp[this.state.name];
+        title = tmp && tmp.kommunnamn;
+      } else {
+        tmp = this.state.geografi[this.state.name];
+        title = tmp && tmp.lansnamn;
+      }
+      text = <ul>
+        <li> <b>Befolkning: </b> {tmp && tmp.befolkning} </li>
+        <li> <b>Nöjd-medborgare Index: </b> {tmp && Math.round(tmp.nmi_delta * 100) / 100 } </li>
+        <li> <b>Skattesats: </b> {tmp && tmp.skattesats}% </li>
+        <li> <b>Snittkostnad per kvadratmeter: </b> {tmp && Math.round(tmp.avg_sqm_cost)}sek </li>
+      </ul>
+    }
     return (
       <div className={styles.main}>
         <div className={styles.navbar_buffer} />
@@ -73,7 +96,10 @@ export default class Start extends Component {
           <div style={{ width: '33%' }}>
             <Search setResult={this.setResult} clearResult={this.clearResult} />
             <div className={styles.information}>
-              <Information name={countyInformation[this.state.name] && countyInformation[this.state.name].name} />
+              <Information 
+                name={title || (countyInformation[this.state.name] && countyInformation[this.state.name].name)}
+                text={ text }
+              />
             </div>
           </div>
         </div>
