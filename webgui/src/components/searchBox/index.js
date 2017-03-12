@@ -17,48 +17,43 @@ export default class App extends Component {
   }
   constructor(props) {
     super(props);
-    let options = [];
-    console.log(API.yrkesgrupper)
-
+    this.state = { options: [], value: [] };
+  }
+  componentDidMount = () => {
     $.ajax({
       url: API.yrkesgrupper,
-      dataType: "json",
-      async: false,
+      dataType: 'json',
       success: function (data) {
-        options = data;
-      },
-      error: function (xhr, status, err) {
+        const values = _.map(data, (value) => (
+          { value: value.yrkesgrupp_id.toString(), label: value.yrkesgrupp }
+        ));
+        this.setState({
+          options: values,
+        });
+      }.bind(this),
+      error(xhr, status, err) {
         console.error(status, err.toString());
       },
     });
-
-    console.log(options);
-    const values = _.map(options, (value) => {
-      return { value: value.yrkesgrupp_id.toString(), label: value.yrkesgrupp };
-    });
-    options = values;
-
-    this.state = {
-      options: options,
-      value: [],
-    };
   }
   handleSelectChange = (value) => {
-    console.log(value);
     this.setState({ value });
   }
   handleSend = () => {
+    const yrkesgrupper = _.map(this.state.value, value => value.value);
     $.ajax({
-      url: "/api",
-      data: { yrkesgrupper: JSON.stringify(this.state.value) },
-      dataType: "json",
-      type: "POST",
-      cache: false,
-      async: false,
-      success: function (data) {
+      url: API.search,
+      data: JSON.stringify({ yrkesgrupper, narliggande: false }),
+      dataType: 'json',
+      contentType: 'application/json',
+      type: 'POST',
+      success: function(data) {
         console.log(data);
-      },
-      error: function (xhr, status, err) {
+        if(!data.error){
+          this.props.setResult(data);
+        }
+      }.bind(this),
+      error(xhr, status, err) {
         console.error(status, err.toString());
       },
     });
@@ -69,14 +64,14 @@ export default class App extends Component {
     return (
       <div className={styles.box}>
         <Select
-          ref="stateSelect" multi autofocus simpleValue name="selected-state"
+          ref="stateSelect" multi autofocus name="selected-state"
           searchable
           options={this.state.options}
           value={this.state.value}
           onChange={this.handleSelectChange}
         />
         <div className={styles.searchButton} >
-          <button className="pure-button" onClick={this.handleSend} >
+          <button className={'pure-button ' + styles.button} onClick={this.handleSend} >
             Sök
           </button>
         </div>
