@@ -51,7 +51,13 @@ def search():
     yrkesgrupper_id = parameters['yrkesgrupper']
 
     with conn.cursor() as cursor:
-        query = "SELECT SUM(antal_nara::int) as a1, SUM(antal_exakt::int) as a2, kommunkod, lanskod FROM h4s.platsbank WHERE yrkesgrupp_id IN (%s) GROUP BY kommunkod, lanskod" % (','.join(map(lambda x: str(int(x)), yrkesgrupper_id)))
+        query = """
+        SELECT h4s.kommuner.kommunkod, lanskod, befolkning, platser.a1, platser.a2
+        FROM h4s.kommuner
+        LEFT JOIN (SELECT SUM(antal_nara::int) as a1, SUM(antal_exakt::int) as a2, h4s.platsbank.kommunkod FROM h4s.platsbank WHERE yrkesgrupp_id IN (%s) GROUP BY kommunkod) as platser
+        ON platser.kommunkod = h4s.kommuner.kommunkod
+        """ % (','.join(map(lambda x: str(int(x)), yrkesgrupper_id)))
+        
         print('Query: %s' % query)
         cursor.execute(query)
 
@@ -59,16 +65,17 @@ def search():
         kommuner = cursor.fetchall()
         if not kommuner:
             return jsonify({'error': 'empty result'})
-        kommuner = map(lambda x: (x[0] if narliggande else x[1], x[2], x[3]), kommuner)
+        kommuner = map(lambda x: (x[3] if narliggande else x[4], x[0], x[1], x[2]), kommuner)
         kommuner = list(map(lambda k: tuple(map(int, k)), kommuner))
+        print(kommuner)
         
     # Get min/max values
-    platser = list(map(lambda x: x[0], kommuner))
+    platser = list(map(lambda x: float(x[0])/x[3], kommuner))  # (Antal platser)/(antal personer)
     min_platser = min(platser)
     max_platser = max(platser)
     
     # Scale values to [0,1]
-    kommuner = map(lambda x: ((x[0]-min_platser)/(max_platser-min_platser), x[1], x[2]), kommuner)
+    kommuner = map(lambda x: ((float(x[0])/x[3]-min_platser)/(max_platser-min_platser), x[1], x[2]), kommuner)
 
     # Sort into counties
     lan = {}
