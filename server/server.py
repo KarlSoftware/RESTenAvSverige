@@ -43,7 +43,11 @@ def geografi():
                     'lansnamn': kommun[2],
                     'lansnamn_short': normalize_county_name(kommun[2]),
                     'lanskod': kommun[3],
-                    'kommuner': []
+                    'kommuner': [],
+                    'avg_sqm_cost': 0.0,
+                    'befolkning': 0,
+                    'nmi_delta': 0,
+                    'skattesats': 0
                 }
 
             result[kommun[3]]['kommuner'].append({
@@ -55,6 +59,17 @@ def geografi():
                 'nmi_delta': float(kommun[6]) if kommun[6] else None,
                 'skattesats': float(kommun[7])
             })
+
+        result = {k: {
+                    'lansnamn': l['lansnamn'],
+                    'lansnamn_short': l['lansnamn_short'],
+                    'lanskod': l['lanskod'],
+                    'kommuner': l['kommuner'],
+                    'avg_sqm_cost': float(sum(map(lambda x: x['avg_sqm_cost'] if x['avg_sqm_cost'] else 0, l['kommuner'])))/len(l['kommuner']),
+                    'befolkning': sum(map(lambda x: x['befolkning'] if x['befolkning'] else 0, l['kommuner'])),
+                    'nmi_delta': float(sum(map(lambda x: x['nmi_delta'] if x['nmi_delta'] else 0, l['kommuner'])))/len(l['kommuner']),
+                    'skattesats': float(sum(map(lambda x: x['skattesats'] if x['skattesats'] else 0, l['kommuner'])))/len(l['kommuner'])
+                } for k,l in result.items()}
 
         return jsonify(result)
 
