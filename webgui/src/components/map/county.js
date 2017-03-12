@@ -7,6 +7,8 @@ export default class County extends React.Component {
   static propTypes = {
     value: PropTypes.string.isRequired,
     status: PropTypes.string,
+    onMouseOver: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
   }
 
   statusStyle = {
@@ -16,7 +18,13 @@ export default class County extends React.Component {
 
   render() {
     return (
-      <path className={styles.county} d={this.props.value} style={{ fillOpacity: this.props.status }} onMouseOver={this.props.onMouseOver} />
+      <path 
+        className={styles.county}
+        d={this.props.value}
+        style={{ fillOpacity: this.props.status }}
+        onMouseOver={this.props.onMouseOver}
+        onClick={this.props.onClick}
+      />
     );
   }
 }
