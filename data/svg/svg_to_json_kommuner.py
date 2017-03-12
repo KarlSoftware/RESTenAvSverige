@@ -16,8 +16,11 @@ lan_data = []
 for path in lan_root[0][0]:
 	kommunnamn = path.attrib['{http://www.safe.com/fme}KOMMUNNAMN'].strip()
 	kommunnamn = normalize_munip_name(kommunnamn)
+
+	kommunkod = int(path.attrib['{http://www.safe.com/fme}KOMMUNKOD'].strip())
+
 	polygon = path.attrib['d'].strip()
-	lan_data.append((kommunnamn, polygon))
+	lan_data.append((str(kommunkod), polygon))
 
 with open('swarje_kommuner.js', 'w') as f:
 	f.write('{')
