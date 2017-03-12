@@ -51,7 +51,7 @@ def search():
     yrkesgrupper_id = parameters['yrkesgrupper']
 
     with conn.cursor() as cursor:
-        query = "SELECT SUM(antal_nara) as a1, SUM(antal_exakt) as a2, kommunkod, lanskod FROM h4s.platsbank WHERE yrkesgrupp_id IN (%s) GROUP BY kommunkod" % (','.join(map(lambda x: str(int(x)), yrkesgrupper_id)))
+        query = "SELECT SUM(antal_nara::int) as a1, SUM(antal_exakt::int) as a2, kommunkod, lanskod FROM h4s.platsbank WHERE yrkesgrupp_id IN (%s) GROUP BY kommunkod, lanskod" % (','.join(map(lambda x: str(int(x)), yrkesgrupper_id)))
         print('Query: %s' % query)
         cursor.execute(query)
 
