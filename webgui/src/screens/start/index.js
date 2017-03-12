@@ -58,7 +58,7 @@ export default class Start extends Component {
   render() {
     let parts = counties;
     let viewBox = null;
-    if (this.state.geografi && this.state.focus){
+    if (this.state.geografi && this.state.focus) {
       const val = _.map(this.state.geografi[this.state.focus].kommuner, (value) => (value.kommunkod));
       parts = _.pick(komuner, (value, key) => {
         return _.contains(val, key);
@@ -70,7 +70,7 @@ export default class Start extends Component {
     if (this.state.geografi) {
       let tmp = null;
       if (this.state.focus) {
-        tmp = _.object(_.map(this.state.geografi[this.state.focus].kommuner, function(item) {
+        tmp = _.object(_.map(this.state.geografi[this.state.focus].kommuner, function (item) {
           return [item.kommunkod, item];
         }));
         tmp = tmp[this.state.name];
@@ -79,27 +79,30 @@ export default class Start extends Component {
         tmp = this.state.geografi[this.state.name];
         title = tmp && tmp.lansnamn;
       }
-      text = <ul>
-        <li> <b>Befolkning: </b> {tmp && tmp.befolkning} </li>
-        <li> <b>Nöjd-medborgare Index: </b> {tmp && Math.round(tmp.nmi_delta * 100) / 100 } </li>
-        <li> <b>Skattesats: </b> {tmp && tmp.skattesats}% </li>
-        <li> <b>Snittkostnad per kvadratmeter: </b> {tmp && Math.round(tmp.avg_sqm_cost)}sek </li>
-      </ul>
+      console.log(tmp);
+      text = <span>
+        <p> <b>Befolkning: </b> {tmp && tmp.befolkning} </p>
+        <p> <b>Nöjd-medborgare Index: </b> {tmp && Math.round(tmp.nmi_delta * 100) / 100} </p>
+        <p> <b>Skattesats: </b> {tmp && Math.round(tmp.skattesats * 100) / 100}% </p>
+        <p> <b>Snittkostnad per kvadratmeter: </b> {tmp && Math.round(tmp.avg_sqm_cost)}sek </p>
+      </span>
     }
     return (
       <div className={styles.main}>
         <div className={styles.navbar_buffer} />
         <div className={styles.flex} >
-          <div style={{ width:"66%" }}>
+          <div style={{ width: "66%" }}>
             <Map result={this.state.focus ? this.state.result[this.state.focus] && this.state.result[this.state.focus].kommuner : this.state.result} parts={parts} viewBox={viewBox} onHover={this.onHover} setLan={this.setLan} clearLan={this.clearLan} />
           </div>
           <div style={{ width: '33%' }}>
-            <Search setResult={this.setResult} clearResult={this.clearResult} />
             <div className={styles.information}>
-              <Information 
+              <Information
                 name={title || (countyInformation[this.state.name] && countyInformation[this.state.name].name)}
-                text={ text }
+                text={text}
               />
+            </div>
+            <div className={styles.searchbox} >
+            <Search setResult={this.setResult} clearResult={this.clearResult} />
             </div>
           </div>
         </div>
