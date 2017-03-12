@@ -16,8 +16,11 @@ lan_data = []
 for path in lan_root[0][0]:
 	lansnamn = path.attrib['{http://www.safe.com/fme}LANSNAMN'].strip()
 	lansnamn = normalize_county_name(lansnamn)
+	
+	lanskod = int(path.attrib['{http://www.safe.com/fme}LANSKOD'].strip())
+
 	polygon = path.attrib['d'].strip()
-	lan_data.append((lansnamn, polygon))
+	lan_data.append((str(lanskod), polygon))
 
 with open('swarje_lan.js', 'w') as f:
 	f.write('{')
