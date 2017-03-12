@@ -5,6 +5,8 @@ import Map from '../../components/map';
 import counties from '../../components/map/counties';
 import komuner from '../../components/map/komuner';
 import Search from '../../components/searchBox';
+import Information from '../../components/information';
+import countyInformation from '../../components/map/countyInformation';
 
 import { API } from '../../routes';
 
@@ -45,8 +47,11 @@ export default class Start extends Component {
           <div style={{ width:"66%" }}>
             <Map result={this.state.result} parts={counties} />
           </div>
-          <div style={{ width:"33%" }}>
+          <div style={{ width: '33%' }}>
             <Search setResult={this.setResult} />
+            <div className={styles.information}>
+              <Information name={countyInformation['stockholm'].name} />
+            </div>
           </div>
         </div>
       </div>

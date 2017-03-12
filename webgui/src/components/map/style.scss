@@ -1,32 +1,16 @@
 @import '../../styling/variables';
 
-.main {
-    padding-top: 10rem; 
-    display: flex;
-    justify-content: space-between;
-}
-
 .svg {
     fill: white;
-    width: 50%;
+    height: 80vh;
+    width: 100%;
 }
 
 .county {
     fill: $map-default;
 }
 
-.information {
-    max-width: 50%;
-}
 
 .county:hover {
     fill: $map-hover;
-}
-
-.informationText {
-    background-color: white;
-    margin-top: 1rem;
-    padding: 2rem;
-    border: 5px solid $contrast;
-    border-radius: 5px;
 }

@@ -19,7 +19,7 @@ module.exports = {
       style: {
         modules: true,
       },
-      resources: ["src/pure.css", "node_modules/react-select/dist/react-select.css", "roc-package-web-app-react/styles/base.css"],
+      resources: ["src/pure.css", "src/custom.css", "node_modules/react-select/dist/react-select.css", "roc-package-web-app-react/styles/base.css"],
     },
     dev: {
       browsersync: {

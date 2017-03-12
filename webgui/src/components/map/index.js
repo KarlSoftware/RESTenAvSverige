@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import countyInformation from './countyInformation';
 import _ from 'underscore';
 import County from './county';
-import Information from './information';
 
 import styles from './style.scss';
 
@@ -29,9 +28,6 @@ export default class Map extends React.Component {
             { _.map(this.props.parts, (value, key) => <County key={key} status={self.props.result ? self.props.result[key].goodness : 1} value={value} onMouseOver={() => this.onHover(key)} />) }
           </g>
         </svg>
-        <div className={styles.information}>
-          <Information name={countyInformation[this.state.name] && countyInformation[this.state.name].name} />
-        </div>
       </div>
     );
   }

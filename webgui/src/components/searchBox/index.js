@@ -71,7 +71,7 @@ export default class App extends Component {
           onChange={this.handleSelectChange}
         />
         <div className={styles.searchButton} >
-          <button className="pure-button" onClick={this.handleSend} >
+          <button className={'pure-button ' + styles.button} onClick={this.handleSend} >
             Sök
           </button>
         </div>

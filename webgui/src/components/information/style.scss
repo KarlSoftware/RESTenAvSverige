@@ -1,0 +1,14 @@
+@import '../../styling/variables';
+
+
+.information {
+    max-width: 50%;
+}
+
+.informationText {
+    background-color: white;
+    margin-top: 1rem;
+    padding: 2rem;
+    border: 5px solid $contrast;
+    border-radius: 5px;
+}

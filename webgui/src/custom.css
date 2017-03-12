@@ -1,0 +1,10 @@
+.Select-control {
+    border: 3px solid #3d4d7f !important;
+    border-radius: 5px !important;
+}
+
+.Select-menu-outer {
+    max-height: 20rem;
+    border: 3px solid #3d4d7f !important;
+    border-radius: 5px !important; 
+}
