@@ -77,6 +77,13 @@ export default class Start extends Component {
             </div>
           </div>
         </div>
+        <div className={styles.footer}>
+          Med data från <a href="https://www.arbetsformedlingen.se/" target="_blank">Arbetsförmedlingen</a><span>, </span>
+          <a href="https://www.lantmateriet.se/" target="_blank"> Lantmäteriet</a><span>, </span>
+          <a href="https://www.kolada.se/?_p=index" target="_blank">Kolada</a><span> och </span>
+          <a href="https://www.booli.se/" target="_blank">Booli</a><span>. </span>
+          Skapat av RESTenAvSverige: Veronica, Petter, Calle och Hilding
+        </div>
       </div>
     );
   }

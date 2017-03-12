@@ -4,6 +4,7 @@
     fill: white;
     height: 80vh;
     width: 100%;
+    outline: none;
 }
 
 .county {
@@ -13,4 +14,5 @@
 
 .county:hover {
     fill: $map-hover;
+    cursor: pointer;
 }

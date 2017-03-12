@@ -18,7 +18,7 @@ export default class County extends React.Component {
 
   render() {
     return (
-      <path 
+      <path         
         className={styles.county}
         d={this.props.value}
         style={{ fillOpacity: this.props.status }}
