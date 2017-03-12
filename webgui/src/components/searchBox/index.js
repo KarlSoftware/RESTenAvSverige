@@ -52,6 +52,9 @@ export default class App extends Component {
         if(!data.error){
           this.props.setResult(data);
         }
+        else{
+          this.props.clearResult();
+        }
       }.bind(this),
       error(xhr, status, err) {
         console.error(status, err.toString());
