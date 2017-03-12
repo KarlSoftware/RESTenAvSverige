@@ -16,7 +16,8 @@ export default class Start extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'stockholm'
+      name: 1,
+      result: {},
     };
   }
   componentDidMount = () => {
@@ -26,6 +27,8 @@ export default class Start extends Component {
       success: function (data) {
         this.setState({
           geografi: data,
+          lanskoder: _.invert(_.mapObject(data, value => (value.lansnamn_short))),
+          lansnamn: _.mapObject(data, value => (value.lansnamn_short)),
         });
       }.bind(this),
       error(xhr, status, err) {
@@ -39,23 +42,38 @@ export default class Start extends Component {
       return [this.state.geografi[key].lansnamn_short, value];
     }));
 
-    this.setState({ result: searchResult });
+    this.setState({ result });
   }
   clearResult = () => {
     this.setState({ result: null });
   }
+  setLan = (id) => {
+    this.setState({ focus: id });
+  }
+  clearLan = () => {
+    this.setState({ focus: null });
+  }
   render() {
+    let parts = counties;
+    let viewBox = null;
+    if (this.state.geografi && this.state.focus){
+      const val = _.map(this.state.geografi[this.state.focus].kommuner, (value) => (value.kommunkod));
+      parts = _.pick(komuner, (value, key) => {
+        return _.contains(val, key);
+      });
+      viewBox = countyInformation[this.state.focus].viewBox;
+    }
     return (
       <div className={styles.main}>
         <div className={styles.navbar_buffer} />
         <div className={styles.flex} >
           <div style={{ width:"66%" }}>
-            <Map result={this.state.result} parts={counties} onHover={this.onHover} />
+            <Map result={this.state.focus ? this.state.result[this.state.focus] && this.state.result[this.state.focus].kommuner : this.state.result} parts={parts} viewBox={viewBox} onHover={this.onHover} setLan={this.setLan} clearLan={this.clearLan} />
           </div>
           <div style={{ width: '33%' }}>
             <Search setResult={this.setResult} clearResult={this.clearResult} />
             <div className={styles.information}>
-              <Information name={countyInformation[this.state.name].name} />
+              <Information name={countyInformation[this.state.name] && countyInformation[this.state.name].name} />
             </div>
           </div>
         </div>
