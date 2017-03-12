@@ -30,7 +30,7 @@ export default class Map extends React.Component {
             { _.map(this.props.parts, (value, key) => 
               <County               
                 key={key} value={value}
-                status={self.props.result ? (self.props.result[key] && self.props.result[key].goodness*100) : 1} 
+                status={self.props.result ? (self.props.result[key] && self.props.result[key].goodness*10 + 0.2) : 1} 
                 onMouseOver={() => this.props.onHover(key)}
                 onClick={() => this.props.setLan(key)}
               />)
