@@ -39,6 +39,9 @@ export default class Start extends Component {
 
     this.setState({ result: searchResult });
   }
+  clearResult = () => {
+    this.setState({ result: null });
+  }
   render() {
     return (
       <div className={styles.main}>
@@ -48,7 +51,7 @@ export default class Start extends Component {
             <Map result={this.state.result} parts={counties} />
           </div>
           <div style={{ width: '33%' }}>
-            <Search setResult={this.setResult} />
+            <Search setResult={this.setResult} clearResult={this.clearResult} />
             <div className={styles.information}>
               <Information name={countyInformation['stockholm'].name} />
             </div>
