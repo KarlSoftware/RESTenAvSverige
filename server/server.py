@@ -21,7 +21,17 @@ def index():
 @app.route("/geografi")
 def geografi():
     with conn.cursor() as cursor:
-        query = "SELECT kommunnamn, kommunkod, lansnamn, lanskod, booli_id FROM h4s.kommuner"
+        query = """
+        SELECT h4s.kommuner.kommunnamn, h4s.kommuner.kommunkod, h4s.kommuner.lansnamn, h4s.kommuner.lanskod, booli.avg_sqm_cost, h4s.kommuner.befolkning,
+        CASE WHEN nmi IS NULL THEN NULL ELSE (nmi::int-avg_nmi) END AS nmi_delta, skattesats
+        FROM h4s.kommuner
+        LEFT JOIN h4s.statistik
+        ON h4s.kommuner.kommunkod = h4s.statistik.kommunkod
+        LEFT JOIN (SELECT AVG(sqm_cost) as avg_sqm_cost, booli_id FROM h4s.booli_sold GROUP BY booli_id ) AS booli
+        ON h4s.kommuner.booli_id::int = booli.booli_id
+        LEFT JOIN (SELECT AVG(nmi::int) as avg_nmi FROM h4s.statistik) AS avg
+        ON 1=1
+        """
         cursor.execute(query)
 
         result = {}
@@ -37,7 +47,11 @@ def geografi():
             result[kommun[3]]['kommuner'].append({
                 'kommunnamn': kommun[0],
                 'kommunnamn_short': normalize_munip_name(kommun[0]),
-                'kommunkod': kommun[1]
+                'kommunkod': kommun[1],
+                'avg_sqm_cost': float(kommun[4]) if kommun[4] else None,
+                'befolkning': int(kommun[5]),
+                'nmi_delta': float(kommun[6]) if kommun[6] else None,
+                'skattesats': float(kommun[7])
             })
 
         return jsonify(result)
