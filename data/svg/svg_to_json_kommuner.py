@@ -8,7 +8,7 @@ lan_tree = ET.parse('SWARJE_kommuner.svg')
 lan_root = lan_tree.getroot()
 
 def normalize_munip_name(kommunnamn):
-	kommunnamn = kommunnamn.replace(' ','').lower().replace('å','a').replace('ä','a').replace('ö','o')
+	kommunnamn = kommunnamn.replace(' ','').lower().replace('å','a').replace('ä','a').replace('ö','o').replace('-','')
 	kommunnamn = kommunnamn[:-1] if kommunnamn[-1] == 's' else kommunnamn
 	return kommunnamn
 
