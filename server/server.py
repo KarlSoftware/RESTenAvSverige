@@ -5,12 +5,12 @@ from config import conn
 app = Flask(__name__)
 
 def normalize_county_name(lansnamn):
-    lansnamn = lansnamn.replace(' län','').replace(' ','').lower().replace('å','a').replace('ä','a').replace('ö','o')
+    lansnamn = lansnamn.replace(' län','').replace(' ','').lower().replace('å','a').replace('ä','a').replace('ö','o').replace('-','')
     lansnamn = lansnamn[:-1] if lansnamn[-1] == 's' else lansnamn
     return lansnamn
 
 def normalize_munip_name(kommunnamn):
-    kommunnamn = kommunnamn.replace(' ','').lower().replace('å','a').replace('ä','a').replace('ö','o')
+    kommunnamn = kommunnamn.replace(' ','').lower().replace('å','a').replace('ä','a').replace('ö','o').replace('-','')
     kommunnamn = kommunnamn[:-1] if kommunnamn[-1] == 's' else kommunnamn
     return kommunnamn
 
@@ -52,14 +52,18 @@ def search():
 
     with conn.cursor() as cursor:
         query = "SELECT antal_nara, antal_exakt, kommunkod, lanskod FROM h4s.platsbank WHERE yrkesgrupp_id IN (%s)" % (','.join(map(lambda x: str(int(x)), yrkesgrupper_id)))
+        print('Query: %s' % query)
         cursor.execute(query)
 
         # Choose exact or nearby
-        kommuner = map(lambda x: (x[0] if narliggande else x[1], x[2], x[3]), cursor.fetchall())
-        kommuner = map(lambda k: map(int, k), kommuner)
+        kommuner = cursor.fetchall()
+        if not kommuner:
+            return jsonify({'error': 'empty result'})
+        kommuner = map(lambda x: (x[0] if narliggande else x[1], x[2], x[3]), kommuner)
+        kommuner = list(map(lambda k: tuple(map(int, k)), kommuner))
         
     # Get min/max values
-    platser = map(lambda x: x[0], kommuner)
+    platser = list(map(lambda x: x[0], kommuner))
     min_platser = min(platser)
     max_platser = max(platser)
     
@@ -90,7 +94,7 @@ def yrkesgrupper():
     with conn.cursor() as cursor:
         query = "SELECT yrkesgrupp_id, yrkesgrupp FROM h4s.yrkesgrupper"
         cursor.execute(query)
-        result = map(lambda x: {'yrkesgrupp_id': x[0], 'yrkesgrupp': x[1]}, cursor.fetchall())
+        result = list(map(lambda x: {'yrkesgrupp_id': x[0], 'yrkesgrupp': x[1]}, cursor.fetchall()))
         return jsonify(result)
 
 
