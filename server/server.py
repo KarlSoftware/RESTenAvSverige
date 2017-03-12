@@ -1,8 +1,10 @@
 import psycopg2
 import json
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from config import conn
 app = Flask(__name__)
+CORS(app)
 
 def normalize_county_name(lansnamn):
     lansnamn = lansnamn.replace(' län','').replace(' ','').lower().replace('å','a').replace('ä','a').replace('ö','o').replace('-','')
