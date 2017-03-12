@@ -4,8 +4,11 @@ import { Route, IndexRoute } from 'react-router';
 import App from '../screens/app';
 import Start from '../screens/start';
 
+const url = "http://localhost:5000";
 export const API = {
-  yrkesgrupper: "http://localhost:5000/yrkesgrupper",
+  yrkesgrupper: url + "/yrkesgrupper",
+  search: url + "/search",
+  geografi: url + "/geografi",
 };
 
 export default () => (
