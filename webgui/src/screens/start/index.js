@@ -16,6 +16,7 @@ export default class Start extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: 'stockholm'
     };
   }
   componentDidMount = () => {
@@ -32,6 +33,7 @@ export default class Start extends Component {
       },
     });
   }
+  onHover = value => this.setState({ name: value });
   setResult = (result) => {
     const searchResult = _.object(_.map(result, (value, key) => {
       return [this.state.geografi[key].lansnamn_short, value];
@@ -48,12 +50,12 @@ export default class Start extends Component {
         <div className={styles.navbar_buffer} />
         <div className={styles.flex} >
           <div style={{ width:"66%" }}>
-            <Map result={this.state.result} parts={counties} />
+            <Map result={this.state.result} parts={counties} onHover={this.onHover} />
           </div>
           <div style={{ width: '33%' }}>
             <Search setResult={this.setResult} clearResult={this.clearResult} />
             <div className={styles.information}>
-              <Information name={countyInformation['stockholm'].name} />
+              <Information name={countyInformation[this.state.name].name} />
             </div>
           </div>
         </div>
