@@ -7,15 +7,17 @@ import json
 lan_tree = ET.parse('SWARJE_kommuner.svg')
 lan_root = lan_tree.getroot()
 
+def normalize_munip_name(kommunnamn):
+	kommunnamn = kommunnamn.replace(' ','').lower().replace('å','a').replace('ä','a').replace('ö','o')
+	kommunnamn = kommunnamn[:-1] if kommunnamn[-1] == 's' else kommunnamn
+	return kommunnamn
+
 lan_data = []
 for path in lan_root[0][0]:
-	lansnamn = path.attrib['{http://www.safe.com/fme}KOMMUNNAMN'].strip()
-	lansnamn = lansnamn.replace(' ','').lower().replace('å','a').replace('ä','a').replace('ö','o')
-	lansnamn = lansnamn[:-1] if lansnamn[-1] == 's' else lansnamn
+	kommunnamn = path.attrib['{http://www.safe.com/fme}KOMMUNNAMN'].strip()
+	kommunnamn = normalize_munip_name(kommunnamn)
 	polygon = path.attrib['d'].strip()
-	#print(lansnamn, polygon)
-	#print(lansnamn)
-	lan_data.append((lansnamn, polygon))
+	lan_data.append((kommunnamn, polygon))
 
 with open('swarje_kommuner.js', 'w') as f:
 	f.write('{')
