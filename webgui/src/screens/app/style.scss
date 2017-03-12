@@ -64,8 +64,12 @@ pre {
     margin: auto;
 }
 
+a {
+    color: $light-contrast;
+}
+
 a:visited {
-    color: #ff0000;
+    color: $light-contrast;
 }
 
 p {
